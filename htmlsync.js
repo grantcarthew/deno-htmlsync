@@ -1,6 +1,7 @@
 import { existsSync } from "https://deno.land/std@0.81.0/fs/mod.ts";
 
 console.time("Run Time");
+console.log("htmlsync v1.0.0");
 const tokens = {
   head: "@SyncTokenHead",
   foot: "@SyncTokenFoot",
@@ -11,23 +12,25 @@ if (Deno.args.length < 1) {
   exitWithError("Source file argument missing");
 }
 
-if (Deno.args[0] === '-h' || Deno.args[0] === '--help') {
+if (Deno.args[0] === "-h" || Deno.args[0] === "--help") {
   printHelp();
   Deno.exit(0);
 }
 
 if (!Deno.args[0].endsWith(".html")) {
-  exitWithError(`Source file extension is not .html: ${Deno.args[0]}`);
+  exitWithError(`Source file extension invalid: ${Deno.args[0]}`);
 }
 
 if (!existsSync(Deno.args[0])) {
   exitWithError(`Source file not found: ${Deno.args[0]}`);
 }
 
+console.log(`> Source file: ${Deno.args[0]}`);
+
 let newFile = false;
 if (Deno.args.length === 2) {
   newFile = true;
-  console.log(`Creating new HTML file: ${Deno.args[1]}`);
+  console.log(`> Creating new HTML file: ${Deno.args[1]}`);
 }
 
 if (newFile && existsSync(Deno.args[1])) {
@@ -42,7 +45,6 @@ if (sourceLineIndexes.headTokenNextLineIndex < 0) {
 }
 
 // Sync HTML Content
-console.log("htmlsync v1.0.0");
 
 let header = sourceHtml.slice(0, sourceLineIndexes.headTokenNextLineIndex);
 let footer = "";
@@ -55,7 +57,7 @@ if (sourceLineIndexes.footTokenLineIndex > 0) {
 
 if (newFile) {
   Deno.writeTextFileSync(Deno.args[1], header + footer);
-  console.log("New HTML file created");
+  console.log("> New HTML file created");
   console.timeEnd("Run Time");
   Deno.exit();
 }
@@ -75,7 +77,6 @@ for (const item of files) {
 for (const htmlFile of htmlFiles) {
   const targetHtml = await Deno.readTextFile(htmlFile);
   const targetLineIndexes = getTokenLineIndexes(targetHtml, tokens);
-  console.dir(targetLineIndexes);
   let updatedHtml = header;
   if (targetLineIndexes.headTokenNextLineIndex > 0) {
     if (targetLineIndexes.footTokenLineIndex > 0) {
@@ -85,20 +86,19 @@ for (const htmlFile of htmlFiles) {
       );
       updatedHtml += footer;
     } else {
-      console.log('header only')
       updatedHtml += targetHtml.slice(
         targetLineIndexes.headTokenNextLineIndex,
         targetHtml.length,
       );
     }
     Deno.writeTextFileSync(htmlFile, updatedHtml);
-    console.log(`Synchronized html file: ${htmlFile}`);
+    console.log(`> Synchronized file: ${htmlFile}`);
   } else {
-    console.log(`HTML file sync token missing: ${htmlFile}`);
+    console.log(`> HTML file sync token missing: ${htmlFile}`);
   }
 }
 
-function printHelp () {
+function printHelp() {
   console.log(`
   
   htmlsync - Synchronize the HTML header and footer to all your HTML files
@@ -114,11 +114,11 @@ function printHelp () {
   Options:
     -h, --help    Display this help
 
-  `)
+  `);
 }
 
 function exitWithError(message) {
-  console.error(message);
+  console.error("> " + message);
   Deno.exit(1);
 }
 

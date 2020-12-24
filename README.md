@@ -22,7 +22,6 @@ Here are what the token strings look like in a valid `htmlsync` file:
   The head token is required for htmlsync to process this file.
   -->
 
-
 @SyncTokenHead
 
 <!--
@@ -65,7 +64,7 @@ Edit all your HTML files and ensure you have at least a head token and optionall
 To execute `htmlsync` use the following command: 
 
 ```batch
-deno run --unstable --allow-read=. --allow-write=. https://github.com/grantcarthew/deno-htmlsync/htmlsync.js [-h | --help] <source file> [new file]
+deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/main/htmlsync.js [-h | --help] <source file> [new file]
 ```
 
 The only currently supported option is `-h` or `--help` which displays the command line help.
@@ -77,7 +76,7 @@ _Suggestion: It's a long command. Place it into a `bash` file to make repeated u
 To synchronize the header and footer from a `source file` to all `.html` files in your current directory simply specify a source file name only. For example:
 
 ```batch
-deno run --unstable --allow-read=. --allow-write=. https://github.com/grantcarthew/deno-htmlsync/htmlsync.js index.html
+deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/main/htmlsync.js index.html
 ```
 
 The above command will read the header and footer from the `index.html` file and apply that header and footer to
@@ -90,10 +89,39 @@ It is worth noting here that any `.html` files that do not have a head token wil
 Here is an example of using `htmlsync` to create a new `.html` file:
 
 ```batch
-deno run --unstable --allow-read=. --allow-write=. https://github.com/grantcarthew/deno-htmlsync/htmlsync.js index.html about.html
+deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/main/htmlsync.js index.html about.html
 ```
 
 The above command will read the header and footer content from the `index.html` file and create a new file named `about.html` that contains the header and footer content. The new file will have both the head and foot tokens.
+
+## Testing
+
+The unit tests creates three temporary files being `index.html`, `test1.html`, and `test2.html`. If any tests fail these residual files will be left on the file system for examination.
+
+To run the unit tests execute the following command:
+
+```bash
+deno test --unstable --allow-write=. --allow-read=. --allow-run
+```
+
+The console output should look similar to the following:
+
+```text
+running 11 tests
+test Missing source file argument ... ok (38ms)
+test CLI help -h ... ok (35ms)
+test CLI help --help ... ok (33ms)
+test Invalid source file extention ... ok (35ms)
+test Source file not found ... ok (33ms)
+test Create new file header only ... ok (38ms)
+test Create new file header and footer ... ok (37ms)
+test Sync html header only ... ok (41ms)
+test Sync html header and footer ... ok (40ms)
+test Ignore files missing the head token ... ok (40ms)
+test Ignore syncing the footer if file is missing the foot token ... ok (43ms)
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out (414ms)
+```
 
 ## Contributing
 
