@@ -104,7 +104,7 @@ function printHelp() {
   htmlsync - Synchronize the HTML header and footer to all your HTML files
 
   CLI:
-    deno run --unstable --allow-read=. --allow-write=. https://github.com/grantcarthew/deno-htmlsync/htmlsync.js [-h | --help] <source file> [new file] 
+    deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/v1.0.0/htmlsync.js [-h | --help] <source file> [new file] 
   
   Usage: htmlsync.js [options] source [new-file]
     [Options]       See the options below

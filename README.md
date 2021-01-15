@@ -64,7 +64,7 @@ Edit all your HTML files and ensure you have at least a head token and optionall
 To execute `htmlsync` use the following command: 
 
 ```batch
-deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/main/htmlsync.js [-h | --help] <source file> [new file]
+deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/v1.0.0/htmlsync.js [-h | --help] <source file> [new file]
 ```
 
 The only currently supported option is `-h` or `--help` which displays the command line help.
@@ -76,7 +76,7 @@ _Suggestion: It's a long command. Place it into a `bash` file to make repeated u
 To synchronize the header and footer from a `source file` to all `.html` files in your current directory simply specify a source file name only. For example:
 
 ```batch
-deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/main/htmlsync.js index.html
+deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/v1.0.0/htmlsync.js index.html
 ```
 
 The above command will read the header and footer from the `index.html` file and apply that header and footer to
@@ -89,7 +89,7 @@ It is worth noting here that any `.html` files that do not have a head token wil
 Here is an example of using `htmlsync` to create a new `.html` file:
 
 ```batch
-deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/main/htmlsync.js index.html about.html
+deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/v1.0.0/htmlsync.js index.html about.html
 ```
 
 The above command will read the header and footer content from the `index.html` file and create a new file named `about.html` that contains the header and footer content. The new file will have both the head and foot tokens.
