@@ -60,8 +60,7 @@ Make sure you have the latest version of [Deno](https://deno.land/) installed.
 
 Edit all your HTML files and ensure you have at least a head token and optionally a foot token.
 
-
-To execute `htmlsync` use the following command: 
+To execute `htmlsync` use the following command:
 
 ```batch
 deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent.com/grantcarthew/deno-htmlsync/v1.0.0/htmlsync.js [-h | --help] <source file> [new file]
@@ -70,6 +69,56 @@ deno run --unstable --allow-read=. --allow-write=. https://raw.githubusercontent
 The only currently supported option is `-h` or `--help` which displays the command line help.
 
 _Suggestion: It's a long command. Place it into a `bash` file to make repeated use easier._
+
+### Valid HTML file examples
+
+The `@SyncTokenHead` string is required for a `.html` file to be processed by `htmlsync`. Following is an example of a valid `htmlsync` source or destination file. Only the header content will by synchronized:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Valid htmlsync file</title>
+    </head>
+    <body>
+        <h1>Hello World</h1>
+        <!-- Some common navigation markup. Anything really. -->
+        <!-- All content up to and including the next line is defined as header content -->
+        <!-- Start Page Content @SyncTokenHead -->
+        <p>
+          Page specific content.
+        </p>
+    </body>
+</html>
+```
+
+The `@SyncTokenFoot` string is optional for a `.html` file. Add it if you want the footer section of the page synchronized. Again the `@SyncTokenHead` string is required for `htmlsync` to process this file:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Valid htmlsync file</title>
+    </head>
+    <body>
+        <h1>Hello World</h1>
+        <!-- Some common navigation markup. Anything really. -->
+        <!-- All content up to and including the next line is defined as header content -->
+        <!-- Start Page Content @SyncTokenHead -->
+        <p>
+          Page specific content.
+        </p>
+        <!-- End Page Content @SyncTokenFoot -->
+        <!-- All content from the above line to the end of file is defined as the footer content -->
+        <!-- Footer content follows. Disclaimers, links or other common content. -->
+        <p>
+          Footer content.
+        </p>
+    </body>
+</html>
+```
 
 ### How to sync the header and footer
 
@@ -111,7 +160,7 @@ running 11 tests
 test Missing source file argument ... ok (38ms)
 test CLI help -h ... ok (35ms)
 test CLI help --help ... ok (33ms)
-test Invalid source file extention ... ok (35ms)
+test Invalid source file extension ... ok (35ms)
 test Source file not found ... ok (33ms)
 test Create new file header only ... ok (38ms)
 test Create new file header and footer ... ok (37ms)
