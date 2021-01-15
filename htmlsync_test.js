@@ -90,7 +90,7 @@ Deno.test("CLI help --help", async () => {
   assertEquals(result.errStr, "");
 });
 
-Deno.test("Invalid source file extention", async () => {
+Deno.test("Invalid source file extension", async () => {
   const result = await exec("index.nothtml");
   assertEquals(result.success, false);
   assert(result.outStr.includes("htmlsync v"));
