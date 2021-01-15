@@ -131,7 +131,7 @@ Review the [Code of Conduct](CONTRIBUTING.md) document.
 
 ## Change Log
 
-
+* 2020-01-16: v1.0.0 - Initial release.
 
 ## License
 
