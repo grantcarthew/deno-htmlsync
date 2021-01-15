@@ -129,7 +129,7 @@ If you find a bug please open an issue or send a pull request.
 
 Review the [Code of Conduct](CONTRIBUTING.md) document.
 
-## Change Log
+## ChangeLog
 
 * 2020-01-16: v1.0.0 - Initial release.
 
